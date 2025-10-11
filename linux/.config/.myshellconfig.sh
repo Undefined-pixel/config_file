@@ -195,7 +195,6 @@ chpwd() {
 tstart() {
     tmux new-session -A -s "$result"
 }
-
 # ~~~~~~~~~~~~~~~~alisa for shell~~~~~~~~~~~~~~~~~~~~~~~
 alias home='cd ~'
 alias t='tmux'
@@ -218,52 +217,26 @@ alias wetter="curl http://v3.wttr.in/Hessen.sxl; sleep 5; curl http://v1.wttr.in
 alias eZ="vim ~/.zshrc"
 alias eV="vim ~/.vimrc"
 alias eZc="vim ~/.config/.myshellconfig.sh"
-
+alias vi='vim'
+alias vim='vim'
+alias v='vim'
+if command -v bat &> /dev/null; then 
+    alias cat='bat --color=always'
+elif command -v batcat &> /dev/null; then  
+    alias cat='batcat --color=always'
+fi
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+  alias os='lsb_release -a'
   alias open="nautilus"
   alias eS="vim ~/.config/sway/config"
 fi
 # Add an "alert" alias for long running commands.  Use liVke so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-
-if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    if command -v vimx &> /dev/null; then
-        alias vi='nvim'
-        alias vim='nvim'
-        alias v='nvim'      
-    else
-        alias vi='vim'
-        alias v='vim'
-    fi    
-
-    if command -v bat &> /dev/null; then 
-        alias cat='bat --color=always'
-    elif command -v batcat &> /dev/null; then  
-        alias cat='batcat --color=always'
-    fi
-elif [[ "$OSTYPE" == "darwin"* ]]; then  
-    alias os='lsb_release -a'
-    if command -v nvim &> /dv/null; then
-        alias vi='nvim'
-        alias vim='nvim'
-        alias v='nvim'       
-    else
-        alias vi='vim'
-        alias v='vim'
-    fi
-    
-    if command -v bat &> /dev/null; then 
-        alias cat='bat --color=always'
-    fi
-fi
-
 # alias to show the date
 alias da='date "+%Y-%m-%d %A %T %Z"'
-
 # Search command line history
 alias h="history | grep "
-
 # Search running processes
 alias p="ps aux | grep "
 alias topcpu="/bin/ps -eo pcpu,pid,user,args | sort -k 1 -r | head -10"
