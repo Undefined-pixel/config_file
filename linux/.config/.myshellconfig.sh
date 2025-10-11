@@ -8,12 +8,20 @@ elif [[ "$OS" == "Linux" ]]; then
 else
   result="Windoof"
 fi
-HISTSIZE=100000
-SAVEHIST=100000
+# === Zsh History Configuration ===
+HISTFILE=~/.zsh_history     # Where to store your command history
+HISTSIZE=10000000           # Number of commands to keep in memory
+SAVEHIST=10000000           # Number of commands to save to the history file
 
-setopt HIST_IGNORE_SPACE  # Don't save when prefixed with space
-setopt HIST_IGNORE_DUPS   # Don't save duplicate lines
-setopt SHARE_HISTORY      # Share history between sessions
+# === Recommended Options ===
+setopt APPEND_HISTORY        # Append new commands to the history file instead of overwriting it
+setopt INC_APPEND_HISTORY    # Write commands to the history file immediately, not only when exiting
+setopt SHARE_HISTORY         # Share command history across all running Zsh sessions in real-time
+setopt HIST_IGNORE_DUPS      # Don’t record a command if it’s the same as the previous one
+setopt HIST_IGNORE_ALL_DUPS  # Remove older duplicate entries, keeping only the most recent
+setopt HIST_IGNORE_SPACE     # Don’t store commands that start with a space
+setopt HIST_REDUCE_BLANKS    # Remove extra spaces from commands before saving
+setopt HIST_SAVE_NO_DUPS     # Don’t save duplicate entries to the history file
 
 # ~~~~~~~~~~~~~~~colors for simple shell ~~~~~~~~~~~~~~~~~~~~~~~~
 if [ -n "$SSH_CONNECTION" ]; then
@@ -22,8 +30,6 @@ if [ -n "$SSH_CONNECTION" ]; then
     PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
 else
     echo "You are not connected via SSH."
-    #autoload -U colors && colors
-    #PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
 fi
 # ~~~~~~~~~~~~~~~vim zsh stuff ~~~~~~~~~~~~~~~~~~~~~~~~
 setVimForShell(){
@@ -211,6 +217,7 @@ alias g='git'
 alias wetter="curl http://v3.wttr.in/Hessen.sxl; sleep 5; curl http://v1.wttr.in/Wolfsburg"
 alias eZ="vim ~/.zshrc"
 alias eV="vim ~/.vimrc"
+alias eZc="vim ~/.config/.myshellconfig.sh"
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
   alias open="nautilus"

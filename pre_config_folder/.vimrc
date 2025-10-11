@@ -1,3 +1,5 @@
+"Version 1.0"
+
 set number 
 "set relativenumber
 set autoindent
