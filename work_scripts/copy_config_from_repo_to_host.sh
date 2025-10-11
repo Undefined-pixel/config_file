@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 rsync -av $HOME/repo/config_file/linux/.config/.myshellconfig.sh $HOME/.config/.myshellconfig.sh
 

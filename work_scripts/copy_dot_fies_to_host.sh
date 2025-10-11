@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 source ./helper_functions.sh
 
