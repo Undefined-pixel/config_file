@@ -27,7 +27,11 @@ setopt HIST_SAVE_NO_DUPS     # Don’t save duplicate entries to the history fil
 if [ -n "$SSH_CONNECTION" ]; then
     echo "You are connected via SSH."
     autoload -U colors && colors
-    PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
+    autoload -Uz vcs_info
+    precmd() { vcs_info }
+    zstyle ':vcs_info:git:*' formats '%b '
+    setopt PROMPT_SUBST
+    PROMPT='%F{green}%*%f %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f$ '
 else
     echo "You are not connected via SSH."
 fi

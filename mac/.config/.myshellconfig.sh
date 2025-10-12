@@ -8,22 +8,32 @@ elif [[ "$OS" == "Linux" ]]; then
 else
   result="Windoof"
 fi
-HISTSIZE=100000
-SAVEHIST=100000
+# === Zsh History Configuration ===
+HISTFILE=~/.zsh_history     # Where to store your command history
+HISTSIZE=10000000           # Number of commands to keep in memory
+SAVEHIST=10000000           # Number of commands to save to the history file
 
-setopt HIST_IGNORE_SPACE  # Don't save when prefixed with space
-setopt HIST_IGNORE_DUPS   # Don't save duplicate lines
-setopt SHARE_HISTORY      # Share history between sessions
+# === Recommended Options ===
+setopt APPEND_HISTORY        # Append new commands to the history file instead of overwriting it
+setopt INC_APPEND_HISTORY    # Write commands to the history file immediately, not only when exiting
+setopt SHARE_HISTORY         # Share command history across all running Zsh sessions in real-time
+setopt HIST_IGNORE_DUPS      # Don’t record a command if it’s the same as the previous one
+setopt HIST_IGNORE_ALL_DUPS  # Remove older duplicate entries, keeping only the most recent
+setopt HIST_IGNORE_SPACE     # Don’t store commands that start with a space
+setopt HIST_REDUCE_BLANKS    # Remove extra spaces from commands before saving
+setopt HIST_SAVE_NO_DUPS     # Don’t save duplicate entries to the history file
 
 # ~~~~~~~~~~~~~~~colors for simple shell ~~~~~~~~~~~~~~~~~~~~~~~~
 if [ -n "$SSH_CONNECTION" ]; then
     echo "You are connected via SSH."
     autoload -U colors && colors
-    PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
+    autoload -Uz vcs_info
+    precmd() { vcs_info }
+    zstyle ':vcs_info:git:*' formats '%b '
+    setopt PROMPT_SUBST
+    PROMPT='%F{green}%*%f %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f$ '
 else
     echo "You are not connected via SSH."
-    #autoload -U colors && colors
-    #PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
 fi
 # ~~~~~~~~~~~~~~~vim zsh stuff ~~~~~~~~~~~~~~~~~~~~~~~~
 setVimForShell(){
@@ -189,7 +199,6 @@ chpwd() {
 tstart() {
     tmux new-session -A -s "$result"
 }
-
 # ~~~~~~~~~~~~~~~~alisa for shell~~~~~~~~~~~~~~~~~~~~~~~
 alias home='cd ~'
 alias t='tmux'
@@ -211,52 +220,27 @@ alias g='git'
 alias wetter="curl http://v3.wttr.in/Hessen.sxl; sleep 5; curl http://v1.wttr.in/Wolfsburg"
 alias eZ="vim ~/.zshrc"
 alias eV="vim ~/.vimrc"
-
+alias eZc="vim ~/.config/.myshellconfig.sh"
+alias vi='vim'
+alias vim='vim'
+alias v='vim'
+if command -v bat &> /dev/null; then 
+    alias cat='bat --color=always'
+elif command -v batcat &> /dev/null; then  
+    alias cat='batcat --color=always'
+fi
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+  alias os='lsb_release -a'
   alias open="nautilus"
   alias eS="vim ~/.config/sway/config"
 fi
 # Add an "alert" alias for long running commands.  Use liVke so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-
-if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    if command -v vimx &> /dev/null; then
-        alias vi='nvim'
-        alias vim='nvim'
-        alias v='nvim'      
-    else
-        alias vi='vim'
-        alias v='vim'
-    fi    
-
-    if command -v bat &> /dev/null; then 
-        alias cat='bat --color=always'
-    elif command -v batcat &> /dev/null; then  
-        alias cat='batcat --color=always'
-    fi
-elif [[ "$OSTYPE" == "darwin"* ]]; then  
-    alias os='lsb_release -a'
-    if command -v nvim &> /dv/null; then
-        alias vi='nvim'
-        alias vim='nvim'
-        alias v='nvim'       
-    else
-        alias vi='vim'
-        alias v='vim'
-    fi
-    
-    if command -v bat &> /dev/null; then 
-        alias cat='bat --color=always'
-    fi
-fi
-
 # alias to show the date
 alias da='date "+%Y-%m-%d %A %T %Z"'
-
 # Search command line history
 alias h="history | grep "
-
 # Search running processes
 alias p="ps aux | grep "
 alias topcpu="/bin/ps -eo pcpu,pid,user,args | sort -k 1 -r | head -10"
