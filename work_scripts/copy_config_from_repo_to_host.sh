@@ -1,5 +1,8 @@
 #!/bin/bash
 
+rsync -av $HOME/repo/config_file/linux/.config/zed/settings.json $HOME/.config/zed/settings.json
+rsync -av $HOME/repo/config_file/linux/.config/zed/keymap.json $HOME/.config/zed/keymap.json
+
 rsync -av $HOME/repo/config_file/linux/.config/.myshellconfig.sh $HOME/.config/.myshellconfig.sh
 
 ZSHRC="$HOME/.zshrc"
