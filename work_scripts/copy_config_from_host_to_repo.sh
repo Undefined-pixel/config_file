@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -xe
+
 #reminder
 # --delete → Löscht Dateien im Ziel, die im Quellverzeichnis nicht mehr existieren (perfekt für Spiegelungen)
 
@@ -11,5 +13,4 @@ rsync -av $HOME/.config/zed/settings.json $HOME/repo/config_file/mac/.config/zed
 rsync -av $HOME/.config/zed/keymap.json $HOME/repo/config_file/mac/.config/zed/keymap.json
 rsync -av $HOME/.config/zed/settings.json $HOME/repo/config_file/linux/.config/zed/settings.json
 rsync -av $HOME/.config/zed/keymap.json $HOME/repo/config_file/linux/.config/zed/keymap.json
-
 rsync -av $HOME/.config/.myshellconfig.sh $HOME/repo/config_file/linux/.config/.myshellconfig.sh
