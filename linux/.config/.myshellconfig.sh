@@ -183,13 +183,6 @@ rangercd () {
     fi
 }
 bindkey -s '^o' 'rangercd\n'
-
-function rm
-{
-  /bin/rm $@ -I
-}
-
-
 # ~~~~~~~~~~~~~~~standart editor~~~~~~~~~~~~~~~~~~~~~~~~
 export EDITOR=vim;
 # ~~~~~~~~~~~~~~~~bind history key again ~~~~~~~~~~~~~~~~~~~~~~~
@@ -233,6 +226,7 @@ alias eZc="vim ~/.config/.myshellconfig.sh"
 alias vi='vim'
 alias vim='vim'
 alias v='vim'
+alias p3='python3'
 if command -v bat &> /dev/null; then 
     alias cat='bat --color=always'
 elif command -v batcat &> /dev/null; then  
