@@ -23,16 +23,25 @@ setopt HIST_IGNORE_SPACE     # Don’t store commands that start with a space
 setopt HIST_REDUCE_BLANKS    # Remove extra spaces from commands before saving
 setopt HIST_SAVE_NO_DUPS     # Don’t save duplicate entries to the history file
 
-# ~~~~~~~~~~~~~~~colors for simple shell ~~~~~~~~~~~~~~~~~~~~~~~~
-if [ -n "$SSH_CONNECTION" ]; then
-    echo "You are connected via SSH."
+
+# ~~~~~~~~~~~~~~~ zsh mini config  ~~~~~~~~~~~~~~~~~~~~~~~~
+zsh_basic_config(){
     autoload -U colors && colors
     autoload -Uz vcs_info
     precmd() { vcs_info }
     zstyle ':vcs_info:git:*' formats '%b '
     setopt PROMPT_SUBST
     PROMPT='%F{green}%*%f %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f$ '
+}
+
+# ~~~~~~~~~~~~~~~colors for simple shell ~~~~~~~~~~~~~~~~~~~~~~~~
+if [ -n "$SSH_CONNECTION" ]; then
+    echo "You are connected via SSH."
+    zsh_basic_config
 else
+    if [[ ! -f ~/.p10k.zsh ]]; then 
+    zsh_basic_config
+    fi
     echo "You are not connected via SSH."
 fi
 # ~~~~~~~~~~~~~~~vim zsh stuff ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -174,13 +183,6 @@ rangercd () {
     fi
 }
 bindkey -s '^o' 'rangercd\n'
-
-function rm
-{
-  /bin/rm $@ -I
-}
-
-
 # ~~~~~~~~~~~~~~~standart editor~~~~~~~~~~~~~~~~~~~~~~~~
 export EDITOR=vim;
 # ~~~~~~~~~~~~~~~~bind history key again ~~~~~~~~~~~~~~~~~~~~~~~
@@ -224,6 +226,7 @@ alias eZc="vim ~/.config/.myshellconfig.sh"
 alias vi='vim'
 alias vim='vim'
 alias v='vim'
+alias p3='python3'
 if command -v bat &> /dev/null; then 
     alias cat='bat --color=always'
 elif command -v batcat &> /dev/null; then  

@@ -11,6 +11,8 @@ set -xe
 
 rsync -av $HOME/.config/zed/settings.json $HOME/repo/config_file/mac/.config/zed/settings.json
 rsync -av $HOME/.config/zed/keymap.json $HOME/repo/config_file/mac/.config/zed/keymap.json
-rsync -av $HOME/.config/zed/settings.json $HOME/repo/config_file/linux/.config/zed/settings.json
-rsync -av $HOME/.config/zed/keymap.json $HOME/repo/config_file/linux/.config/zed/keymap.json
 rsync -av $HOME/.config/.myshellconfig.sh $HOME/repo/config_file/linux/.config/.myshellconfig.sh
+rsync -av $HOME/.config/fastfetch $HOME/repo/config_file/linux/.config/fastfetch/ 
+rsync -av $HOME/.config/nvim $HOME/repo/config_file/linux/.config/nvim/ 
+
+
