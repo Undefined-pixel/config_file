@@ -6,6 +6,11 @@ rsync -av $HOME/repo/config_file/linux/.config/.myshellconfig.sh $HOME/.config/.
 rsync -av $HOME/repo/config_file/linux/.config/fastfetch/ $HOME/.config/fastfetch
 rsync -av $HOME/repo/config_file/linux/.config/nvim/ $HOME/.config/nvim
 
+OS=$(uname)
+if [[ "$OS" == "Darwin" ]]; then
+  rsync -av $HOME/repo/config_file/linux/.config/sketchybar/ $HOME/.config/sketchybar
+fi
+
 ZSHRC="$HOME/.zshrc"
 LINE='source ~/.config/.myshellconfig.sh'
 

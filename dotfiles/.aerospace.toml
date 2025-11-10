@@ -12,6 +12,11 @@ start-at-login = true
 enable-normalization-flatten-containers = true
 enable-normalization-opposite-orientation-for-nested-containers = true
 
+# Notify Sketchybar about workspace change and update icons
+exec-on-workspace-change = ['/bin/bash', '-c', 'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE PREV_WORKSPACE=$AEROSPACE_PREV_WORKSPACE && ~/.config/sketchybar/plugins/update_workspace_icons.sh']
+
+
+
 # See: https://nikitabobko.github.io/AeroSpace/guide#layouts
 # The 'accordion-padding' specifies the size of accordion padding
 # You can set 0 to disable the padding feature
@@ -51,12 +56,19 @@ automatically-unhide-macos-hidden-apps = false
 #                 See:
 #                 https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
 [gaps]
-    inner.horizontal = 10
-    inner.vertical =   10
-    outer.left =       5
-    outer.bottom =     5
-    outer.top =        5
-    outer.right =      5
+inner.horizontal = 8
+inner.vertical = 8
+outer.bottom = 5
+# outer.top = [{ monitor.main = 40}, 40]
+outer.top = [
+  { monitor."built-in" = 10 },   # Matches MacBook screen (with the notch)
+  { monitor."main" = 40 },       # Applies to whichever display is currently "main"
+  40                             # Fallback default for all others
+]
+outer.right = 5
+outer.left = 5
+
+
 
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
