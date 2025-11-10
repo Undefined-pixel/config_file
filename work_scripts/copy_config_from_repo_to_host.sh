@@ -8,7 +8,9 @@ rsync -av $HOME/repo/config_file/linux/.config/nvim/ $HOME/.config/nvim
 
 OS=$(uname)
 if [[ "$OS" == "Darwin" ]]; then
-  rsync -av $HOME/repo/config_file/linux/.config/sketchybar/ $HOME/.config/sketchybar
+  rsync -av $HOME/repo/config_file/mac/.config/sketchybar/ $HOME/.config/sketchybar
+  rsync -av $HOME/repo/config_file/mac/.config/borders/ $HOME/.config/borders
+
 fi
 
 ZSHRC="$HOME/.zshrc"

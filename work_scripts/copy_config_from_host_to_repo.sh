@@ -18,4 +18,5 @@ rsync -av $HOME/.config/nvim $HOME/repo/config_file/linux/.config/nvim/
 OS=$(uname)
 if [[ "$OS" == "Darwin" ]]; then
   rsync -av $HOME/.config/sketchybar $HOME/repo/config_file/mac/.config/sketchybar/
+  rsync -av $HOME/.config/borders/ $HOME/repo/config_file/mac/.config/borders/
 fi
